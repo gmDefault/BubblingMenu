@@ -6,9 +6,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.TextArea;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -24,6 +26,8 @@ public class view extends JFrame {
 	private JPanel panel;
 	private controller controler;
 	private JMenuBar toolBar = fillToolBar();
+	private JLabel textarea = new JLabel();
+
 
 	public view() {
 
@@ -40,6 +44,7 @@ public class view extends JFrame {
 				g2.fillRect(0, 0, getWidth(), getHeight());
 			}
 		});
+		panel.add(textarea);
 		controler = new controller(this);
 		controler.addMouseListeners(this);
 
@@ -54,25 +59,25 @@ public class view extends JFrame {
 		JMenu menu1 = new JMenu("Fichier");
 		JMenu menu2 = new JMenu("Edition");
 		/* differents choix de chaque menu */
-		MyMenuItem demarrer = new MyMenuItem("Démarrer");
-		MyMenuItem fin = new MyMenuItem("Fin");
-		MyMenuItem annuler = new MyMenuItem("Annuler");
-		MyMenuItem copier = new MyMenuItem("Copier");
-		MyMenuItem coller = new MyMenuItem("Coller");
-		MyMenuItem item1 = new MyMenuItem("item1");
-		MyMenuItem item2 = new MyMenuItem("item2");
-		MyMenuItem item3 = new MyMenuItem("item3");
-		MyMenuItem item4 = new MyMenuItem("item4");
-		MyMenuItem item5 = new MyMenuItem("item5");
+		MyMenuItem demarrer = new MyMenuItem("Démarrer",this);
+		MyMenuItem fin = new MyMenuItem("Fin",this);
+		MyMenuItem annuler = new MyMenuItem("Annuler",this);
+		MyMenuItem copier = new MyMenuItem("Copier",this);
+		MyMenuItem coller = new MyMenuItem("Coller",this);
+		MyMenuItem item1 = new MyMenuItem("item1",this);
+		MyMenuItem item2 = new MyMenuItem("item2",this);
+		MyMenuItem item3 = new MyMenuItem("item3",this);
+		MyMenuItem item4 = new MyMenuItem("item4",this);
+		MyMenuItem item5 = new MyMenuItem("item5",this);
 		// sous menu
 		menu1.addSeparator();
 		JMenu submenu = new JMenu("A submenu");
 		submenu.setPreferredSize(new Dimension(50, 50));
-		MyMenuItem item6 = new MyMenuItem("item6");
-		MyMenuItem item7 = new MyMenuItem("item7");
-		MyMenuItem item8 = new MyMenuItem("item8");
-		MyMenuItem item9 = new MyMenuItem("item9");
-		MyMenuItem item10 = new MyMenuItem("item10");
+		MyMenuItem item6 = new MyMenuItem("item6",this);
+		MyMenuItem item7 = new MyMenuItem("item7",this);
+		MyMenuItem item8 = new MyMenuItem("item8",this);
+		MyMenuItem item9 = new MyMenuItem("item9",this);
+		MyMenuItem item10 = new MyMenuItem("item10",this);
 		submenu.add(item6);
 		submenu.add(item7);
 		submenu.add(item8);
@@ -96,6 +101,10 @@ public class view extends JFrame {
 		menu_bar1.add(menu2);
 
 		return menu_bar1;
+	}
+
+	public JLabel getTextarea() {
+		return textarea;
 	}
 
 	public static void main(String[] arg) {
