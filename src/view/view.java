@@ -19,6 +19,7 @@ import javax.swing.JToolBar;
 import controller.controller;
 import model.MyMenu;
 import model.MyMenuItem;
+import model.TransparentPanel;
 import model.model;
 
 public class view extends JFrame {
@@ -27,6 +28,7 @@ public class view extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
+	private TransparentPanel panelCircle;
 	private controller controler;
 	private model modelMenu = new model();
 	private JMenuBar toolBar;
@@ -52,7 +54,7 @@ public class view extends JFrame {
 		panel.add(textarea);
 		controler = new controller(this);
 		controler.addMouseListeners(this);
-		
+		//add(panelCircle = new TransparentPanel());
 		add(toolBar, BorderLayout.NORTH);
 		setSize(600, 600);
 		show();
