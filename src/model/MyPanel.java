@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -16,24 +17,10 @@ public class MyPanel extends JPanel {
 	
 	private int x;
 	private int y;
-	private int height;
-	private int width;
+	private int height = 10;
+	private int width = 10;
 	
 	public MyPanel() {
-		this.addMouseMotionListener(new MouseMotionListener() {
-
-			@Override
-			public void mouseDragged(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseMoved(MouseEvent arg0) {
-				x = arg0.getX();
-				y = arg0.getY();
-			}
-		});
 	}
 
 	// This is Swing, so override paint*Component* - not paint
@@ -43,5 +30,39 @@ public class MyPanel extends JPanel {
 		super.paintComponent(g);
 		g.setColor(Color.RED);
 		g.fillOval(x, y, height, width);
+		System.out.println("testetst");
 	}
+	
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
 }
