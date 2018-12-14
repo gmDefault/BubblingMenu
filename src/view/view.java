@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,6 +23,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import controller.controller;
+import model.MyListener;
 import model.MyMenu;
 import model.MyMenuItem;
 import model.MyPanel;
@@ -32,7 +34,7 @@ public class view extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel panel;
+	private JPanel panel = new JPanel();
 	private JLayeredPane backPanel;
 	private controller controler;
 	private model modelMenu = new model();
@@ -43,8 +45,26 @@ public class view extends JFrame {
 	private int y;
 	private int height;
 	private int width;
-	
+	public int posX;
+	public int posY;
+	private JPanel glassPane = new JPanel() {
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			Graphics2D g2 = (Graphics2D) g;
+			if (circle) {
+				g2.setColor(Color.RED);
+				System.out.println("x : " + x + " y : " + y);
+				g2.fillOval(x, y, 2 * height, 2 * width);
+				circle = false;
+			}
+		}
+	};
+
 	public view() {
+		this.setGlassPane(glassPane);
+		glassPane.setOpaque(false);
+		glassPane.setVisible(true);
+		
 		toolBar = fillToolBar();
 
 		getContentPane().setLayout(new BorderLayout());
@@ -53,28 +73,6 @@ public class view extends JFrame {
 
 		backPanel = new JLayeredPane();
 		backPanel.setLayout(null);
-//
-//		MyPanel panelTop = new MyPanel();
-//		panelTop.addMouseMotionListener(new MouseMotionListener() {
-//
-//			@Override
-//			public void mouseDragged(MouseEvent arg0) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//
-//			@Override
-//			public void mouseMoved(MouseEvent arg0) {
-//				System.out.println("x : " + arg0.getX() + " y : " + arg0.getY());
-//				panelTop.setX(arg0.getX());
-//				panelTop.setY(arg0.getY());
-//				panelTop.repaint();
-//			}
-//		});
-//
-//		panelTop.setBounds(new Rectangle(0, 0, 600, 600));
-//		panelTop.setOpaque(true);
-//		backPanel.add(panelTop, JLayeredPane.DEFAULT_LAYER);
 
 		add(panel = new JPanel() {
 			public void paintComponent(Graphics g) {
@@ -83,18 +81,13 @@ public class view extends JFrame {
 				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				g2.setColor(Color.WHITE);
 				g2.fillRect(0, 0, getWidth(), getHeight());
-				if(circle) {
-					g2.setColor(Color.RED);
-					g2.fillOval(x, y, 2*height, 2*width);
-					circle = false;
-				}
 			}
 		});
 		MouseMotionListener ml = new MouseMotionListener() {
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -102,8 +95,10 @@ public class view extends JFrame {
 				circle = true;
 				height = 10;
 				width = 10;
-				x = arg0.getX()-width;
-				y = arg0.getY()-height;
+				posX = arg0.getX();
+				posY = arg0.getY();
+				x = arg0.getX() - width;
+				y = arg0.getY() - height;
 				panel.repaint();
 			}
 		};
@@ -118,7 +113,7 @@ public class view extends JFrame {
 		// add(panelCircle = new TransparentPanel());
 		setContentPane(backPanel);
 		setLocationRelativeTo(null);
-		panel.add(toolBar, BorderLayout.NORTH);
+		panel.add(toolBar);
 		show();
 	}
 
@@ -177,12 +172,23 @@ public class view extends JFrame {
 		/* Ajouter les menu sur la bar de menu */
 		menu_bar1.add(menu1);
 		menu_bar1.add(menu2);
+		
+		/*Ajouter les mouse listener a tous les elements*/
+		menu1.addMouseMotionListener(new MyListener(glassPane, menu1, this, panel));
+		menu2.addMouseMotionListener(new MyListener(glassPane, menu2, this, panel));
 
 		return menu_bar1;
 	}
 
 	public JLabel getTextarea() {
 		return textarea;
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	public void setY(int y) {
+		this.y = y;
 	}
 
 	public static void main(String[] arg) {

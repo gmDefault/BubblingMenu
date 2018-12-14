@@ -15,4 +15,5 @@ public class MyMenu extends JMenu {
 	public void changeInterestOfMenu() {
 		this.setBackground(new Color(128, 191, 255));
 	}
+	
 }
