@@ -5,9 +5,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.TextArea;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -19,6 +22,7 @@ import javax.swing.JToolBar;
 import controller.controller;
 import model.MyMenu;
 import model.MyMenuItem;
+import model.MyPanel;
 import model.TransparentPanel;
 import model.model;
 
@@ -28,12 +32,13 @@ public class view extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
+	private JPanel backPanel;
 	private TransparentPanel panelCircle;
 	private controller controler;
 	private model modelMenu = new model();
 	private JMenuBar toolBar;
 	private JLabel textarea = new JLabel();
-
+	
 
 	public view() {
 		toolBar = fillToolBar();
@@ -41,7 +46,15 @@ public class view extends JFrame {
 		getContentPane().setLayout(new BorderLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 600);
+		
+		backPanel = new JPanel();
+		backPanel.setLayout(null);
 
+		MyPanel panelTop = new MyPanel();
+		panelTop.setBounds(new Rectangle(0,0,600,600));
+		panelTop.setOpaque(false);
+		backPanel.add(panelTop);
+		
 		add(panel = new JPanel() {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -51,12 +64,17 @@ public class view extends JFrame {
 				g2.fillRect(0, 0, getWidth(), getHeight());
 			}
 		});
+		panel.setBounds(new Rectangle(0,0,600,600));
 		panel.add(textarea);
+		panel.setOpaque(true);
+		backPanel.add(panel);		
+		
 		controler = new controller(this);
 		controler.addMouseListeners(this);
 		//add(panelCircle = new TransparentPanel());
-		add(toolBar, BorderLayout.NORTH);
-		setSize(600, 600);
+		setContentPane(backPanel);
+        setLocationRelativeTo(null);
+		panel.add(toolBar, BorderLayout.NORTH);
 		show();
 	}
 
