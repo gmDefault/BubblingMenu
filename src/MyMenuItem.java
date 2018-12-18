@@ -1,5 +1,3 @@
-package model;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -10,23 +8,18 @@ import java.awt.event.MouseListener;
 import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 
-import view.view;
-
 public class MyMenuItem extends JMenuItem {
-	view view;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public MyMenuItem(final String str, final view view) {
+	public MyMenuItem(final String str) {
 		super(str);
-		this.view = view;
 		this.setPreferredSize(new Dimension(100, 50));
 		this.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 			}
 
 			@Override
@@ -44,19 +37,21 @@ public class MyMenuItem extends JMenuItem {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
+				Main.textArea.setText(str);
+				Bubbling.drawBubble = false;
 
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				Bubbling.drawBubble = false;
 				if (SwingUtilities.isLeftMouseButton(arg0)) {
 					System.out.println(str);
-					view.getTextarea().setText(str);
 				}
 			}
 		});
 	}
-	
+
 	public void changeInterestOfItem() {
 		this.setBackground(new Color(128, 191, 255));
 	}
