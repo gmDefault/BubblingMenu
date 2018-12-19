@@ -51,7 +51,6 @@ public class Bubbling extends JComponent {
 		if (this.drawBubble) {
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setColor(new Color(128, 191, 255, 125));
-			Rectangle bound = this.getBounds();
 			g2.fillOval(0, 0, this.getWidth(), this.getHeight());
 		}
 	}

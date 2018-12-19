@@ -2,33 +2,45 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputListener;
 
-
 public class MyListener implements MouseInputListener {
-	private ArrayList<MyMenuItem> importantItems = new ArrayList<MyMenuItem>();
+	private ArrayList<JComponent> importantItems = new ArrayList<JComponent>();
 	private Bubbling bubble;
-	public static JFrame frame;
+	public static JPanel panel;
+
+	public JComponent item;
 	public static final int LG_MENU = 50;
 	public static final int HT_MENU = 25;
+	public JComponent itemToClick = null;
 
-	public MyListener(Bubbling bubble, ArrayList<MyMenuItem> importantItems) {
+	public MyListener(Bubbling bubble, ArrayList<JComponent> importantItems, MyMenu item) {
 		this.bubble = bubble;
 		this.importantItems = importantItems;
+		this.item = item;
+	}
+
+	public MyListener(Bubbling bubble, ArrayList<JComponent> importantItems, MyMenuItem item) {
+		this.bubble = bubble;
+		this.importantItems = importantItems;
+		this.item = item;
+	}
+
+	public MyListener(Bubbling bubble, ArrayList<JComponent> importantItems, JPanel item) {
+		this.bubble = bubble;
+		this.importantItems = importantItems;
+		this.item = item;
 	}
 
 	public MyListener(Bubbling bubble) {
 		this.bubble = bubble;
 	}
 
-	public void setJFrame(JFrame frame) {
-		MyListener.frame = frame;
-	}
-	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -37,14 +49,18 @@ public class MyListener implements MouseInputListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-	Bubbling.drawBubble = !Bubbling.drawBubble;
-	System.out.println("HAHAHAHA");
+		if (SwingUtilities.isRightMouseButton(e)) {
+			Bubbling.drawBubble = true;
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// selectionner item
-
+		Bubbling.drawBubble = false;
+		bubble.repaint();
+		if (itemToClick != null) {
+			((AbstractButton) this.itemToClick).doClick();
+		}
 	}
 
 	@Override
@@ -68,46 +84,35 @@ public class MyListener implements MouseInputListener {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		int closestDist = (int) getDistanceClosestItem(importantItems, e);
-		bubble.setBounds(e.getX() - closestDist / 2, e.getY() - closestDist / 2, closestDist / 2, closestDist / 2);
+		Point absoluteMousePos = SwingUtilities.convertPoint(item, e.getPoint(), panel);
+		bubble.setBounds((int) absoluteMousePos.getX() - closestDist, (int) absoluteMousePos.getY() - closestDist,
+				closestDist * 2, closestDist * 2);
 		bubble.repaint();
 	}
 
-//	public MyMenuItem getClosestItem(ArrayList<MyMenuItem> importantItems, MouseEvent e) {
-//		MyMenuItem currentClosestItem = null;
-//		double distance = Double.MAX_VALUE;
-//		double currentDistance = 0;
-//		for (int i = 0; i < importantItems.size(); i++) {
-//			currentDistance = Math.sqrt(
-//					(importantItems.get(i).getX() - e.getX()) ^ 2 + (importantItems.get(i).getY() - e.getY()) ^ 2);
-//			if (currentDistance < distance) {
-//				currentClosestItem = importantItems.get(i);
-//			}
-//		}
-//		return currentClosestItem;
-//	}
-
-	public double getDistanceClosestItem(ArrayList<MyMenuItem> importantItems, MouseEvent e) {
+	// Calcul la distance de la souris a tout les items importants
+	public double getDistanceClosestItem(ArrayList<JComponent> importantItems, MouseEvent e) {
 		MyMenuItem currentClosestItem = null;
 		double distance = Double.MAX_VALUE;
 		double currentDistance = 0;
-		Point eventLoc = new Point();
+		Point absoluteMousePos = e.getPoint();
+		absoluteMousePos = SwingUtilities.convertPoint(item, absoluteMousePos, panel);
 		Point importantItemLoc = new Point();
 		for (int i = 0; i < importantItems.size(); i++) {
-			if(importantItems.get(i).isShowing())
+			if (importantItems.get(i).isShowing()) {
 				importantItemLoc = importantItems.get(i).getLocationOnScreen();
-			eventLoc = e.getPoint();
-			SwingUtilities.convertPointToScreen(eventLoc, importantItems.get(i));
-			currentDistance = Math.sqrt(Math.pow(importantItemLoc.getX() + LG_MENU - e.getX(), 2)
-					+ Math.pow(importantItemLoc.getY() + HT_MENU - e.getY(), 2));
-//			System.out.println("i : " + i + " current dist : " + currentDistance);
-			System.out.println("X I : " + importantItemLoc.getX() + " Y I "  + importantItemLoc.getY()) ;
-			if (currentDistance < distance) {
-				distance = currentDistance;
+				importantItemLoc.x += LG_MENU;
+				importantItemLoc.y += HT_MENU;
+				SwingUtilities.convertPointFromScreen(importantItemLoc, panel);
+				currentDistance = Math.sqrt(Math.pow(importantItemLoc.getX() - absoluteMousePos.getX(), 2)
+						+ Math.pow(importantItemLoc.getY() - absoluteMousePos.getY(), 2));
+				if (currentDistance <= distance) {
+					distance = currentDistance;
+					this.itemToClick = importantItems.get(i);
+				}
 			}
 		}
-
-		
 		return distance;
-	}
 
+	}
 }
