@@ -102,35 +102,51 @@ public class Main {
 		/* Ajouter les mouse listener a tous les elements */
 		item1.addMouseMotionListener(new MyListener(bubble,list));
 		item1.addMouseListener(new MyListener(bubble,list));
+		item1.addActionListener(new MyActionListener(item1.getText()));
 		item2.addMouseMotionListener(new MyListener(bubble,list));
 		item2.addMouseListener(new MyListener(bubble,list));
+		item2.addActionListener(new MyActionListener(item2.getText()));
 		item3.addMouseMotionListener(new MyListener(bubble,list));
 		item3.addMouseListener(new MyListener(bubble,list));
+		item3.addActionListener(new MyActionListener(item3.getText()));
 		item4.addMouseMotionListener(new MyListener(bubble,list));
 		item4.addMouseListener(new MyListener(bubble,list));
+		item4.addActionListener(new MyActionListener(item4.getText()));
 		item5.addMouseMotionListener(new MyListener(bubble,list));
 		item5.addMouseListener(new MyListener(bubble,list));
+		item5.addActionListener(new MyActionListener(item5.getText()));
 		item6.addMouseMotionListener(new MyListener(bubble,list));
 		item6.addMouseListener(new MyListener(bubble,list));
+		item6.addActionListener(new MyActionListener(item6.getText()));
 		item7.addMouseMotionListener(new MyListener(bubble,list));
 		item7.addMouseListener(new MyListener(bubble,list));
+		item7.addActionListener(new MyActionListener(item7.getText()));
 		item8.addMouseMotionListener(new MyListener(bubble,list));
 		item8.addMouseListener(new MyListener(bubble,list));
+		item8.addActionListener(new MyActionListener(item8.getText()));
 		item9.addMouseMotionListener(new MyListener(bubble,list));
 		item9.addMouseListener(new MyListener(bubble,list));
+		item9.addActionListener(new MyActionListener(item9.getText()));
 		item10.addMouseMotionListener(new MyListener(bubble,list));
 		item10.addMouseListener(new MyListener(bubble,list));
+		item10.addActionListener(new MyActionListener(item10.getText()));
 		demarrer.addMouseMotionListener(new MyListener(bubble,list));
 		demarrer.addMouseListener(new MyListener(bubble,list));
+		demarrer.addActionListener(new MyActionListener(demarrer.getText()));
 		fin.addMouseMotionListener(new MyListener(bubble,list));
 		fin.addMouseListener(new MyListener(bubble,list));
+		fin.addActionListener(new MyActionListener(fin.getText()));
 
 		menu1.addMouseMotionListener(new MyListener(bubble,list));		
 		menu1.addMouseListener(new MyListener(bubble,list));
+		menu1.addActionListener(new MyActionListener(menu1.getText()));
+
 
 		// menu2.addMouseListener(new MyListener(bubble, menu2, panel));
 		submenu.addMouseListener(new MyListener(bubble,list));
 		submenu.addMouseMotionListener(new MyListener(bubble,list));
+		submenu.addActionListener(new MyActionListener(submenu.getText()));
+
 
 
 		textArea.setBounds(500, 50, 50, 50);
