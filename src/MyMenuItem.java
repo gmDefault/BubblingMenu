@@ -17,39 +17,6 @@ public class MyMenuItem extends JMenuItem {
 	public MyMenuItem(final String str) {
 		super(str);
 		this.setPreferredSize(new Dimension(100, 50));
-//		this.addMouseListener(new MouseListener() {
-//			@Override
-//			public void mouseClicked(MouseEvent arg0) {
-//			}
-//
-//			@Override
-//			public void mouseEntered(MouseEvent arg0) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//
-//			@Override
-//			public void mouseExited(MouseEvent arg0) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//
-//			@Override
-//			public void mousePressed(MouseEvent arg0) {
-//				// TODO Auto-generated method stub
-//				Main.textArea.setText(str);
-//				Bubbling.drawBubble = false;
-//
-//			}
-//
-//			@Override
-//			public void mouseReleased(MouseEvent arg0) {
-//				Bubbling.drawBubble = false;
-//				if (SwingUtilities.isLeftMouseButton(arg0)) {
-//					System.out.println(str);
-//				}
-//			}
-//		});
 	}
 
 	public void changeInterestOfItem() {
