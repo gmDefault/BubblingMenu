@@ -1,4 +1,5 @@
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -9,17 +10,8 @@ import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.event.MouseInputListener;
 
 public class Main {
 	// public static JLabel itemSelect = new JLabel("Item frappe");
@@ -41,6 +33,7 @@ public class Main {
 			}
 		};
 		frame.setSize(600, 600);
+		// Définition du panel pour MyListener
 		MyListener.panel = panel;
 		panel.setLayout(new BorderLayout());
 
@@ -83,6 +76,7 @@ public class Main {
 		submenu.changeInterestOfMenu();
 		item11.changeInterestOfItem();
 		
+		// Ajout des items importants à la liste
 		list.add(item4);
 		list.add(item9);
 		list.add(demarrer);
@@ -94,6 +88,7 @@ public class Main {
 		menu_bar1.add(menu1);
 		menu_bar1.add(menu2);
 
+		// Ajoute des item dans le sous-menu
 		submenu.add(item6);
 		submenu.add(item7);
 		submenu.add(item8);
@@ -158,26 +153,27 @@ public class Main {
 		item11.addActionListener(new MyActionListener(item11.getText()));
 		item12.addActionListener(new MyActionListener(item12.getText()));
 		
-		
+		// ajout les listeners sur les menus
 		menu1.addMouseMotionListener(new MyListener(bubble,list, menu1));		
 		menu1.addMouseListener(new MyListener(bubble,list, menu1));
 		menu2.addMouseMotionListener(new MyListener(bubble,list, menu2));		
 		menu2.addMouseListener(new MyListener(bubble,list, menu2));
 		
-		// menu2.addMouseListener(new MyListener(bubble, menu2, panel));
+		// ajout des listeners sur le sous-menu
 		submenu.addMouseListener(new MyListener(bubble,list, submenu));
 		submenu.addMouseMotionListener(new MyListener(bubble,list, submenu));
 
-
+		// Ajout des listeners sur le panel
 		panel.addMouseMotionListener(new MyListener(bubble,list, panel));
 		panel.addMouseListener(new MyListener(bubble,list, panel));
 		
+		// Définit la position et la taille de la text area représentant le dernier bouton cliqué
 		textArea.setBounds(500, 50, 100, 50);
-
 		
-		// menu_bar1.add(menu2);
+		// Ajoute le textarea (qui représente le dernier bouton cliqué), le panel et la bubble à la frame.
 		frame.add(textArea);
 		frame.add(panel);
+		// Place la bubble au plus haut niveau
 		frame.setGlassPane(bubble);
 		bubble.setVisible(true);
 

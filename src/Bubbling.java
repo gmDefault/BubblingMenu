@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import javax.swing.JComponent;
 
 public class Bubbling extends JComponent {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static boolean drawBubble;
 	private int mousePosX;
 	private int mousePosY;
@@ -46,9 +50,10 @@ public class Bubbling extends JComponent {
 		this.importantItems = importantItems;
 	}
 
+	// Si DrawBubble est activé, on dessine la bubble
 	@Override
 	public void paintComponent(Graphics g) {
-		if (this.drawBubble) {
+		if (drawBubble) {
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setColor(new Color(128, 191, 255, 125));
 			g2.fillOval(0, 0, this.getWidth(), this.getHeight());

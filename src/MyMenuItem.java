@@ -18,7 +18,7 @@ public class MyMenuItem extends JMenuItem {
 		super(str);
 		this.setPreferredSize(new Dimension(100, 50));
 	}
-
+	//Change la couleur des items d'intérêts
 	public void changeInterestOfItem() {
 		this.setBackground(new Color(128, 191, 255));
 	}

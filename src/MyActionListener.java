@@ -9,10 +9,9 @@ public class MyActionListener implements ActionListener {
 	public MyActionListener(String s) {
 		this.s = s;
 	}
-	
+	// Met à jour le bouton cliqué
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		Main.textArea.setText(s);
 	} 
 
