@@ -1,6 +1,6 @@
 LAFRASSE Cédric - Tim LEPAGE
 
-Ce dépot contient un jar executable avec la commande java -jar BubblingMenu.jar ainsi que le code source du projet.
+Ce dépot contient un jar executable avec la commande java -jar BubblingMenu.jar, le pdf de compte rendu ainsi que le code source du projet.
 
 
 Comment utiliser le menu:
